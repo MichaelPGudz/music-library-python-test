@@ -1,5 +1,3 @@
-from file_handling import import_data
-
 ARTIST_NAME = 0
 ALBUM_NAME = 1
 RELEASE_YEAR = 2
@@ -30,6 +28,8 @@ def get_longest_album(albums):
     :returns: longest album
     :rtype: list
     """
+    longest_album = max([album[LENGTH] for album in albums])
+    return longest_album
 
 
 def get_total_albums_length(albums):
@@ -40,3 +40,12 @@ def get_total_albums_length(albums):
     :returns: total albums' length in minutes
     :rtype: float
     """
+    # albums_length = [float(album[LENGTH].replace(":", ".")[3:])/60 for album in albums]
+    albums_length = []
+    for album in albums:
+        album_minutes = float(album[LENGTH][0:2])
+        album_seconds = float(album[LENGTH].replace(":", ".")[3:])/60
+        album_length = album_minutes + album_seconds
+        albums_length.append(album_length)
+        total_length = sum(albums_length)
+    return round(total_length, 2)
