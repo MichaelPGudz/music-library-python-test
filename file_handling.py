@@ -31,11 +31,15 @@ def export_data(albums, filename='albums_data.txt', mode='a'):
     :raises ValueError: if mode other than 'w' or 'a' was given. Error message:
         'Wrong write mode'
     """
-    try:
-        with open(filename, mode) as file:
-            for album in albums:
-                row = "".join(album)
-                file.write(row + "\n")
-        return "Process completed!"
-    except ValueError as error:
-        return error
+    modes = ["w", "a"]
+    if mode in modes:
+        try:
+            with open(filename, mode) as file:
+                for album in albums:
+                    row = ",".join(album)
+                    file.write(row + "\n")
+            return "Process completed!"
+        except ValueError as error:
+            return error
+    else:
+        raise ValueError("Wrong write mode!")
