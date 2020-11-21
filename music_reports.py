@@ -6,15 +6,30 @@ LENGTH = 4
 
 
 def get_genre_stats(albums):
-    pass
+    albums_genres = list([album[GENRE] for album in albums])
+    number_of_albums = dict.fromkeys(albums_genres)
+    for genre in albums_genres:
+        if number_of_albums[genre] is None:
+            number_of_albums[genre] = 1
+        else:
+            number_of_albums[genre] += 1
+    return number_of_albums
 
 
 def get_last_oldest(albums):
-    pass
+    oldest = 2020
+    index_oldest = 0
+    for index, album in enumerate(albums):
+        if int(album[RELEASE_YEAR]) <= oldest:
+            oldest = int(album[RELEASE_YEAR])
+            index_oldest = index
+    return albums[index_oldest]
 
 
 def get_last_oldest_of_genre(albums, genre):
-    pass
+    albums_genres = list([album for album in albums if album[GENRE] == genre])
+    return get_last_oldest(albums_genres)
+
 
 
 def get_albums_by_genre(albums, genre):
